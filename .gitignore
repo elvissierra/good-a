@@ -1,0 +1,57 @@
+# --------------------
+# Root .gitignore
+# --------------------
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+#Env
+.env
+
+# Python (backend)
+__pycache__/
+*.pyc
+.venv/
+backend/.env
+backend/.pytest_cache/
+backend/.mypy_cache/
+backend/.coverage
+backend/.good_app/
+backend/.ruff_cache/
+
+# Node / Vite / Ionic (frontend)
+node_modules/
+dist/
+.vite/
+coverage/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Capacitor / Native (frontend/goodtoday)
+frontend/goodtoday/android/.gradle/
+frontend/goodtoday/android/.idea/
+frontend/goodtoday/android/local.properties
+frontend/goodtoday/android/app/build/
+frontend/goodtoday/android/build/
+frontend/goodtoday/ios/build/
+frontend/goodtoday/ios/Pods/
+frontend/goodtoday/ios/DerivedData/
+frontend/goodtoday/ios/App/App.xcworkspace/xcuserdata/
+*.xcuserdatad
+*.xcworkspace/xcuserdata/
+
+# Prevent accidental commits of higher-level directories
+Desktop/
+Downloads/
+Documents/
