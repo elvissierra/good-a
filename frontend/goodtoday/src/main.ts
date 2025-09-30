@@ -3,7 +3,9 @@ import App from './App.vue'
 import router from './router';
 import { initDb } from './services/db'
 import { scheduleDailyPrompts } from './services/notify'
+import { startSyncLoop } from './services/repo'
 import { IonicVue } from '@ionic/vue';
+
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';
@@ -27,6 +29,7 @@ import '@ionic/vue/css/palettes/dark.system.css';
 /* Theme variables */
 import './theme/variables.css';
 
+
 const app = createApp(App)
 app.use(IonicVue)
 app.use(router)
@@ -34,5 +37,6 @@ app.use(router)
 router.isReady().then(async () => {
   await initDb()
   await scheduleDailyPrompts()
+  startSyncLoop()
   app.mount('#app')
 })

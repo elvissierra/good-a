@@ -1,2 +1,70 @@
-/* For information on how to create your own theme, please see:
-http://ionicframework.com/docs/theming/ */
+/* Ionic theme variables */
+:root {
+  /* default Ionic colors left as-is (not shown for brevity) */
+
+  /* Good'a custom brand colors */
+  --ion-color-goodgreen: #16a34a;           /* emerald-600 */
+  --ion-color-goodgreen-rgb: 22,163,74;
+  --ion-color-goodgreen-contrast: #ffffff;
+  --ion-color-goodgreen-contrast-rgb: 255,255,255;
+  --ion-color-goodgreen-shade: #15803d;     /* emerald-700 */
+  --ion-color-goodgreen-tint: #22c55e;      /* emerald-500 */
+
+  --ion-color-goodorange: #f97316;          /* orange-500 */
+  --ion-color-goodorange-rgb: 249,115,22;
+  --ion-color-goodorange-contrast: #ffffff;
+  --ion-color-goodorange-contrast-rgb: 255,255,255;
+  --ion-color-goodorange-shade: #ea580c;    /* orange-600 */
+  --ion-color-goodorange-tint: #fb923c;     /* orange-400 */
+}
+
+/* Required CSS class hooks for Ionic color system */
+.ion-color-goodgreen {
+  --ion-color-base: var(--ion-color-goodgreen);
+  --ion-color-base-rgb: var(--ion-color-goodgreen-rgb);
+  --ion-color-contrast: var(--ion-color-goodgreen-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-goodgreen-contrast-rgb);
+  --ion-color-shade: var(--ion-color-goodgreen-shade);
+  --ion-color-tint: var(--ion-color-goodgreen-tint);
+}
+
+.ion-color-goodorange {
+  --ion-color-base: var(--ion-color-goodorange);
+  --ion-color-base-rgb: var(--ion-color-goodorange-rgb);
+  --ion-color-contrast: var(--ion-color-goodorange-contrast);
+  --ion-color-contrast-rgb: var(--ion-color-goodorange-contrast-rgb);
+  --ion-color-shade: var(--ion-color-goodorange-shade);
+  --ion-color-tint: var(--ion-color-goodorange-tint);
+}
+
+/* --- Good'a warm background + surfaces --- */
+:root {
+  /* Warm off-white background across the app */
+  --ion-background-color: #FFF8E7; /* champagne/eggshell */
+  --ion-background-color-rgb: 255, 248, 231;
+
+  /* Primary text stays neutral/dark for contrast */
+  --ion-text-color: #1f2937;
+  --ion-text-color-rgb: 31, 41, 55;
+
+  /* Toolbar matches background with subtle border */
+  --ion-toolbar-background: #FFF8E7;
+  --ion-toolbar-border-color: rgba(0,0,0,0.06);
+
+  /* Cards/items use a light surface slightly brighter than background */
+  --ion-card-background: #FFFBF3;
+  --ion-item-background: #FFFBF3;
+
+  /* Inputs/buttons focus ring subtle orange tint */
+  --ion-color-step-450: #fdeed9; /* used by some Ionic components for steps */
+}
+
+/* Optional: give cards a faint border for structure on warm bg */
+ion-card {
+  box-shadow: none;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 12px;
+}
+
+/* Optional: lighten skeleton shimmer bars on warm bg */
+ion-skeleton-text { --background: rgba(0,0,0,0.06); --background-rgb: 0,0,0; }

@@ -6,7 +6,7 @@
         <!-- simple radial slices placeholder -->
         <circle cx="60" cy="60" r="50" fill="none" stroke="currentColor" stroke-dasharray="80 80" transform="rotate(-90 60 60)"/>
       </svg>
-      <p class="ion-text-center">Balance Wheel (week)</p>
+      <p class="ion-text-center ion-color ion-color-goodorange">Balance Wheel (week)</p>
     </ion-content>
   </ion-page>
 </template>
