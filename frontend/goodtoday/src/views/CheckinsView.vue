@@ -11,7 +11,7 @@
     </ion-header>
     <ion-content class="ion-padding">
       <ion-grid>
-        <ion-row class="ion-text-bold ion-padding-bottom">
+        <ion-row class="ion-text-bold ion-padding-bottom sticky-head">
           <ion-col size="4"><a href="#" @click.prevent="setSort('date')">Date <small>{{ sortLabel('date') }}</small></a></ion-col>
           <ion-col size="2"><a href="#" @click.prevent="setSort('mood')">Mood <small>{{ sortLabel('mood') }}</small></a></ion-col>
           <ion-col size="2"><a href="#" @click.prevent="setSort('energy')">Energy <small>{{ sortLabel('energy') }}</small></a></ion-col>
@@ -34,7 +34,12 @@
         </ion-row>
 
         <ion-row v-if="!loading && sortedCheckins.length === 0">
-          <ion-col size="12" class="ion-text-center ion-padding">No check-ins yet.</ion-col>
+          <ion-col size="12" class="ion-text-center ion-padding">
+            No check-ins yet.
+            <div class="ion-margin-top">
+              <ion-button color="goodgreen" @click="$router.push('/home')">Add today’s check-in</ion-button>
+            </div>
+          </ion-col>
         </ion-row>
       </ion-grid>
 
@@ -126,3 +131,13 @@ async function syncNow() {
   }
 }
 </script>
+
+<style scoped>
+.sticky-head {
+  position: sticky;
+  top: 0;
+  background: var(--ion-background-color);
+  z-index: 10;
+  padding-top: 8px;
+}
+</style>

@@ -6,14 +6,26 @@
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
-      <ion-item>
-        <ion-input v-model="email" type="email" label="Email" label-placement="floating" autocomplete="username" />
-      </ion-item>
-      <ion-item class="ion-margin-top">
-        <ion-input v-model="password" type="password" label="Password" label-placement="floating" autocomplete="current-password" />
-      </ion-item>
-      <ion-button expand="block" class="ion-margin-top" :disabled="loading" @click="onLogin">{{ loading ? 'Signing in…' : 'Sign in' }}</ion-button>
-      <ion-text color="danger" v-if="error" class="ion-margin-top">{{ error }}</ion-text>
+      <div class="login-wrap">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Welcome back</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-item>
+              <ion-input v-model="email" type="email" label="Email" label-placement="floating" autocomplete="username" />
+            </ion-item>
+            <ion-item class="ion-margin-top">
+              <ion-input :type="showPassword ? 'text' : 'password'" v-model="password" label="Password" label-placement="floating" autocomplete="current-password" />
+            </ion-item>
+            <ion-button fill="clear" size="small" class="ion-margin-top" @click="showPassword = !showPassword">
+              {{ showPassword ? 'Hide password' : 'Show password' }}
+            </ion-button>
+            <ion-button expand="block" class="ion-margin-top" :disabled="loading" @click="onLogin">{{ loading ? 'Signing in…' : 'Sign in' }}</ion-button>
+            <ion-text color="danger" v-if="error" class="ion-margin-top">{{ error }}</ion-text>
+          </ion-card-content>
+        </ion-card>
+      </div>
     </ion-content>
   </ion-page>
 </template>
@@ -22,12 +34,13 @@
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { login } from '@/api/auth'
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonInput, IonButton, IonText } from '@ionic/vue'
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonInput, IonButton, IonText, IonCard, IonCardHeader, IonCardTitle, IonCardContent } from '@ionic/vue'
 
 const email = ref('test@example.com')
 const password = ref('secret')
 const loading = ref(false)
 const error = ref('')
+const showPassword = ref(false)
 
 const route = useRoute()
 const router = useRouter()
@@ -46,3 +59,11 @@ async function onLogin() {
   }
 }
 </script>
+
+<style scoped>
+.login-wrap {
+  max-width: 420px;
+  margin: 0 auto;
+  padding-top: 10vh;
+}
+</style>
