@@ -1,0 +1,85 @@
+version: "3.9"
+
+name: gooda
+
+services:
+  # ---------------------------
+  # Backend API (FastAPI assumed)
+  # ---------------------------
+  api:
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile.yml
+    env_file:
+      - ./backend/.env
+    environment:
+      # Safe defaults if .env is missing
+      - APP_MODULE=app.main:app
+      - UVICORN_WORKERS=${UVICORN_WORKERS:-2}
+      - UVICORN_PORT=8000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - gooda-net
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:8000/health || exit 1"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 15s
+    profiles: [ "dev", "prod" ]
+
+  # ---------------------------
+  # PostgreSQL database
+  # ---------------------------
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-gooda}
+      POSTGRES_USER: ${POSTGRES_USER:-gooda}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-gooda}
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - gooda-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    profiles: [ "dev", "prod" ]
+
+  # ---------------------------
+  # Frontend (choose profile)
+  # ---------------------------
+  web:
+    build:
+      context: .
+      dockerfile: ./frontend/dockerfile.yml
+      target: ${WEB_TARGET:-dev}
+    env_file:
+      - ./frontend/goodtoday/.env
+    environment:
+      # Vite needs host binding to work in containers
+      - VITE_API_BASE_URL=${VITE_API_BASE_URL:-http://localhost:8000}
+    ports:
+      - "5173:5173"   # dev
+      - "8080:80"     # prod
+    depends_on:
+      - api
+    networks:
+      - gooda-net
+    # Switch targets by profile:
+    profiles: [ "dev", "prod" ]
+
+
+volumes:
+  db_data:
+
+networks:
+  gooda-net:
+    driver: bridge

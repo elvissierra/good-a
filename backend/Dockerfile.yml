@@ -1,0 +1,35 @@
+# syntax=docker/dockerfile:1.7
+FROM python:3.11-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+WORKDIR /app
+
+# System deps
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      curl build-essential ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+# Python dependencies (requirements.txt optional)
+COPY backend/requirements.txt* ./requirements.txt
+RUN if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+# App code
+COPY backend/ /app/
+
+EXPOSE 8000
+
+# Healthcheck endpoint hint: /health or /livez
+HEALTHCHECK --interval=30s --timeout=3s --start-period=15s --retries=3 \
+  CMD curl -fsS http://127.0.0.1:8000/health || exit 1
+
+# Default command assumes FastAPI with uvicorn; adjust APP_MODULE if different.
+ENV APP_MODULE=app.main:app \
+    UVICORN_HOST=0.0.0.0 \
+    UVICORN_PORT=8000 \
+    UVICORN_WORKERS=2
+
+CMD [ "sh", "-c", "uvicorn ${APP_MODULE} --host ${UVICORN_HOST} --port ${UVICORN_PORT} --workers ${UVICORN_WORKERS} --proxy-headers" ]

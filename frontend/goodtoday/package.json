@@ -12,7 +12,6 @@
     "ionic:serve:web": "vite"
   },
   "dependencies": {
-    "@capacitor-community/sqlite": "^7.0.1",
     "@capacitor/android": "^7.4.3",
     "@capacitor/app": "7.1.0",
     "@capacitor/core": "^7.4.3",
@@ -25,8 +24,6 @@
     "@ionic/vue-router": "^8.0.0",
     "axios": "^1.12.2",
     "ionicons": "^7.0.0",
-    "jeep-sqlite": "^2.8.0",
-    "sql.js": "^1.13.0",
     "vue": "^3.3.0",
     "vue-router": "^4.2.0"
   },
