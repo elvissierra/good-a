@@ -6,7 +6,7 @@ from pydantic import BaseModel, EmailStr
 from sqlalchemy.orm import Session
 from passlib.hash import bcrypt
 
-from backend.settings import settings
+from settings import settings
 from .dependacies import get_db
 from . import models
 from .schemas import TokenPair

@@ -59,7 +59,7 @@ services:
   web:
     build:
       context: .
-      dockerfile: ./frontend/dockerfile.yml
+      dockerfile: ./frontend/Dockerfile.yml
       target: ${WEB_TARGET:-dev}
     env_file:
       - ./frontend/goodtoday/.env

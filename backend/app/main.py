@@ -5,7 +5,7 @@ from .dependacies import get_db
 from fastapi.middleware.cors import CORSMiddleware
 from .routes import checkins, activities, sync, insights
 from .auth import auth_router
-from backend.settings import settings  # absolute import; run from repo root
+from settings import settings
 
 app = FastAPI(title="GoodToday API")
 

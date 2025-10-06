@@ -8,7 +8,7 @@ on:
       - 'frontend/**'
       - 'docker-compose.yml'
       - 'backend/Dockerfile.yml'
-      - 'frontend/dockerfile.yml'
+      - 'frontend/Dockerfile.yml'
       - '.github/workflows/ci.yml'
   pull_request:
     branches: [ main, develop ]
@@ -17,7 +17,7 @@ on:
       - 'frontend/**'
       - 'docker-compose.yml'
       - 'backend/Dockerfile.yml'
-      - 'frontend/dockerfile.yml'
+      - 'frontend/Dockerfile.yml'
       - '.github/workflows/ci.yml'
 
 jobs:
@@ -113,6 +113,6 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: frontend/dockerfile.yml
+          file: frontend/Dockerfile.yml
           target: prod
           push: false
